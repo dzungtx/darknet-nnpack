@@ -542,6 +542,7 @@ void rgbgr_image(image im)
 #ifdef OPENCV
 void show_image_cv(image p, const char *name, IplImage *disp)
 {
+/*
     int x,y,k;
     if(p.c == 3) rgbgr_image(p);
     //normalize_image(copy);
@@ -574,6 +575,7 @@ void show_image_cv(image p, const char *name, IplImage *disp)
         cvReleaseImage(&buffer);
     }
     cvShowImage(buff, disp);
+*/
 }
 #endif
 
