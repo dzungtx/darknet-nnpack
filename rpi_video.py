@@ -31,10 +31,9 @@ while True:
             print('Can not connect to camera')
             break
         cv2.imwrite('frame.jpg', frame)
-        
+
         yolo_proc.stdin.write('frame.jpg\n'.encode('ascii'))
         yolo_proc.stdin.flush()
- 
+
     if len(stdout.strip())>0:
         print('get %s' % stdout)
-

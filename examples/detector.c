@@ -353,7 +353,7 @@ void validate_detector_flip(char *datacfg, char *cfgfile, char *weightfile, char
         if(fps) fclose(fps[j]);
     }
     if(coco){
-        fseek(fp, -2, SEEK_CUR); 
+        fseek(fp, -2, SEEK_CUR);
         fprintf(fp, "\n]\n");
         fclose(fp);
     }
@@ -479,7 +479,7 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
         if(fps) fclose(fps[j]);
     }
     if(coco){
-        fseek(fp, -2, SEEK_CUR); 
+        fseek(fp, -2, SEEK_CUR);
         fprintf(fp, "\n]\n");
         fclose(fp);
     }
@@ -622,7 +622,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         detection *dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes);
         printf("%d\n", nboxes);
 	for(int i=0;i<nboxes;i++){
-	   printf("Box %d at (x,y)=(%f,%f) with (w,h)=(%f,%f)\n", i, dets[i].bbox.x, dets[i].bbox.y, dets[i].bbox.w, dets[i].bbox.h); 
+	   printf("Box %d at (x,y)=(%f,%f) with (w,h)=(%f,%f)\n", i, dets[i].bbox.x, dets[i].bbox.y, dets[i].bbox.w, dets[i].bbox.h);
 	}
         //if (nms) do_nms_obj(boxes, probs, l.w*l.h*l.n, l.classes, nms);
         if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
@@ -683,7 +683,7 @@ void censor_detector(char *datacfg, char *cfgfile, char *weightfile, int cam_ind
     }
 
     if(!cap) error("Couldn't connect to webcam.\n");
-    cvNamedWindow(base, CV_WINDOW_NORMAL); 
+    cvNamedWindow(base, CV_WINDOW_NORMAL);
     cvResizeWindow(base, 512, 512);
     float fps = 0;
     int i;
@@ -756,7 +756,7 @@ void extract_detector(char *datacfg, char *cfgfile, char *weightfile, int cam_in
     }
 
     if(!cap) error("Couldn't connect to webcam.\n");
-    cvNamedWindow(base, CV_WINDOW_NORMAL); 
+    cvNamedWindow(base, CV_WINDOW_NORMAL);
     cvResizeWindow(base, 512, 512);
     float fps = 0;
     int i;
@@ -880,6 +880,14 @@ void run_detector(int argc, char **argv)
         char *name_list = option_find_str(options, "names", "data/names.list");
         char **names = get_labels(name_list);
         demo(cfg, weights, thresh, cam_index, filename, names, classes, frame_skip, prefix, avg, hier_thresh, width, height, fps, fullscreen);
+    }
+    else if (0 == strcmp(argv[2], "demoimx8"))
+    {
+        list *options = read_data_cfg(datacfg);
+        int classes = option_find_int(options, "classes", 20);
+        char *name_list = option_find_str(options, "names", "data/names.list");
+        char **names = get_labels(name_list);
+        demoimx8(cfg, weights, thresh, cam_index, names, classes, hier_thresh);
     }
     //else if(0==strcmp(argv[2], "extract")) extract_detector(datacfg, cfg, weights, cam_index, filename, class, thresh, frame_skip);
     //else if(0==strcmp(argv[2], "censor")) censor_detector(datacfg, cfg, weights, cam_index, filename, class, thresh, frame_skip);
